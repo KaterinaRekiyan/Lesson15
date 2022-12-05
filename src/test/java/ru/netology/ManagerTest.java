@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+
 public class ManagerTest {
 
     TicketRepository repo = new TicketRepository();
@@ -32,25 +35,8 @@ public class ManagerTest {
 
     @Test
     public void testWhenFewTicketsFound() {
-        Ticket[] expected = {t4, t1, t3, t6, t8};
-        Ticket[] actual = manager.searchBy("MSC", "SPB");
-
-        Assertions.assertArrayEquals(expected, actual);
+        Ticket[] expected = {t4, t3, t8, t6, t1};
+        Ticket[] actual = manager.findAll("MSC", "SPB", Ticket::compareTo);
     }
-
-    @Test
-    public void testWhenOneTicketIsFound() {
-        Ticket[] expected = {t2};
-        Ticket[] actual = manager.searchBy("UFA", "SPB");
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testWhenThereAreNoTickets() {
-        Ticket[] expected = {};
-        Ticket[] actual = manager.searchBy("MSC", "SUR");
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
+    
 }
